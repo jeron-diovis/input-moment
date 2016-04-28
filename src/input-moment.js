@@ -4,6 +4,8 @@ var React = require('react');
 var Calendar = require('./calendar');
 var Time = require('./time');
 
+import * as DefaultTimeComponents from "./time/components";
+
 module.exports = React.createClass({
   displayName: 'InputMoment',
 
@@ -47,6 +49,7 @@ module.exports = React.createClass({
             className={cx('tab', {'is-active': tab === 1})}
             moment={m}
             onChange={this.props.onChange}
+            {...DefaultTimeComponents}
           />
         </div>
 
