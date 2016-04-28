@@ -38,8 +38,6 @@ module.exports = React.createClass({
       range(1, 42-d3-d2+1)
     );
 
-    var weeks = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
     return (
       <div className={cx('m-calendar', this.props.className)}>
         <div className="toolbar">
@@ -55,7 +53,7 @@ module.exports = React.createClass({
         <table>
           <thead>
             <tr>
-              {weeks.map((w, i) => <td key={i}>{w}</td>)}
+              {this.renderWeekdays()}
             </tr>
           </thead>
 
@@ -73,6 +71,15 @@ module.exports = React.createClass({
         </table>
       </div>
     );
+  },
+
+  componentWillMount() {
+    this.m_weekdays = moment();
+  },
+
+  renderWeekdays() {
+    var weekdays = this.m_weekdays.startOf('week');
+    return range(0, 7).map((w, i) => <td key={i}>{weekdays.weekday(w).format('ddd')}</td>);
   },
 
   selectDate(i, w) {
