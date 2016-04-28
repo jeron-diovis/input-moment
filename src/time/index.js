@@ -1,8 +1,7 @@
 var cx = require('classnames');
 var React = require('react');
 var moment = require('moment');
-
-var noop = () => {};
+var noop = require('lodash/noop');
 
 module.exports = React.createClass({
   displayName: 'Time',
