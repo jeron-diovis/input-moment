@@ -13,9 +13,33 @@
   td {
     padding: 8px 0;
     text-align: center;
-    cursor: pointer;
     color: @color-gray;
     border: 1px solid @color-gray;
+  }
+
+  .day {
+    &--active {
+      cursor: pointer;
+      &:hover {
+        background: @color-blue;
+        border-color: @color-blue;
+        color: @color-white;
+      }
+    }
+
+    &--inactive {
+      background: #CECED0;
+    }
+
+    &--current {
+      color: @color-blue;
+      font-weight: bold;
+    }
+
+    &--prev-month,
+    &--next-month {
+      color: #999999;
+    }
   }
 
   thead {
@@ -30,22 +54,6 @@
 
   tbody td {
     color: #666666;
-
-    &:hover {
-      background: @color-blue;
-      border-color: @color-blue;
-      color: @color-white;
-    }
-  }
-
-  .current-day {
-    color: @color-blue;
-    font-weight: bold;
-  }
-
-  .prev-month,
-  .next-month {
-    color: #999999;
   }
 
   .toolbar {
