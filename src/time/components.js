@@ -11,9 +11,9 @@ var Hours = React.createClass({
   },
 
   render() {
-    var { min, max, value } = this.props;
+    var { min, max, value, className } = this.props;
     return (
-      <div>
+      <div className={className}>
         <div className="time-text">Hours:</div>
         <InputSlider
           className="u-slider-time"
@@ -21,7 +21,7 @@ var Hours = React.createClass({
           xmin={min}
           x={value}
           onChange={this.onChange}
-          />
+        />
       </div>
     );
   },
@@ -43,9 +43,9 @@ var Minutes = React.createClass({
   },
 
   render() {
-    var { min, max, value } = this.props;
+    var { min, max, value, className } = this.props;
     return (
-      <div>
+      <div className={className}>
         <div className="time-text">Minutes:</div>
         <InputSlider
           className="u-slider-time"
@@ -53,7 +53,7 @@ var Minutes = React.createClass({
           xmin={min}
           x={value}
           onChange={this.onChange}
-          />
+        />
       </div>
     );
   },

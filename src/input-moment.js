@@ -1,7 +1,7 @@
 var cx = require('classnames');
 var moment = require('moment');
 var React = require('react');
-var Calendar = require('./calendar');
+var Calendar = require('./date');
 var Time = require('./time');
 
 import * as DefaultTimeComponents from "./time/components";
@@ -18,7 +18,10 @@ module.exports = React.createClass({
   getDefaultProps() {
     return {
       prevMonthIcon: 'ion-ios-arrow-left',
-      nextMonthIcon: 'ion-ios-arrow-right'
+      nextMonthIcon: 'ion-ios-arrow-right',
+      TimeHoursControl: DefaultTimeComponents.Hours,
+      TimeMinutesControl: DefaultTimeComponents.Minutes,
+      TimeDisplay: DefaultTimeComponents.Display
     };
   },
 
@@ -44,12 +47,18 @@ module.exports = React.createClass({
             onChange={this.props.onChange}
             prevMonthIcon={this.props.prevMonthIcon}
             nextMonthIcon={this.props.nextMonthIcon}
+            min={this.props.minDate}
+            max={this.props.maxDate}
           />
           <Time
             className={cx('tab', {'is-active': tab === 1})}
             moment={m}
             onChange={this.props.onChange}
-            {...DefaultTimeComponents}
+            Hours={this.props.TimeHoursControl}
+            Minutes={this.props.TimeMinutesControl}
+            Display={this.props.TimeDisplay}
+            min={this.props.minTime}
+            max={this.props.maxTime}
           />
         </div>
 
@@ -63,11 +72,11 @@ module.exports = React.createClass({
 
   handleClickTab(tab, e) {
     e.preventDefault();
-    this.setState({tab: tab});
+    this.setState({ tab });
   },
 
   handleSave(e) {
     e.preventDefault();
-    if(this.props.onSave) this.props.onSave();
+    if (this.props.onSave) this.props.onSave();
   }
 });
