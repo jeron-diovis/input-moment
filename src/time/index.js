@@ -3,6 +3,8 @@ var React = require('react');
 var moment = require('moment');
 var noop = require('lodash/noop');
 
+import { copyDate, copyWithZeroDate } from "../utils";
+
 module.exports = React.createClass({
   displayName: 'Time',
 
@@ -29,10 +31,8 @@ module.exports = React.createClass({
   },
 
   render() {
-    var {
-      moment: m,
-      Hours, Minutes, Display
-    } = this.props;
+    var { Hours, Minutes, Display } = this.props;
+    var m = this.m_value;
 
     return (
       <div className={cx('m-time', this.props.className)}>
@@ -47,7 +47,7 @@ module.exports = React.createClass({
             min={this.getMinHour()}
             max={this.getMaxHour()}
             value={m.hour()}
-            onChange={this.changeHours}
+            onChange={this.onChangeHours}
           />
 
           <Minutes
@@ -55,25 +55,28 @@ module.exports = React.createClass({
             min={this.getMinMinute()}
             max={this.getMaxMinute()}
             value={m.minute()}
-            onChange={this.changeMinutes}
+            onChange={this.onChangeMinutes}
           />
         </div>
       </div>
     );
   },
 
-  changeHours(pos) {
-    var m = this.props.moment;
+  onChangeHours(pos) {
+    var m = this.m_value;
     m.hours(parseInt(pos, 10));
-    this.fit(m);
-    this.props.onChange(m);
+    this._emitChange(m);
   },
 
-  changeMinutes(pos) {
-    var m = this.props.moment;
+  onChangeMinutes(pos) {
+    var m = this.m_value;
     m.minutes(parseInt(pos, 10));
+    this._emitChange(m);
+  },
+
+  _emitChange(m) {
     this.fit(m);
-    this.props.onChange(m);
+    this.props.onChange(copyDate(m.clone(), this.props.moment));
   },
 
   getMaxHour() {
@@ -95,8 +98,33 @@ module.exports = React.createClass({
   },
 
   fit(m) {
-    var { min, max } = this.props;
+    var { m_min: min, m_max: max } = this;
     m.set(moment.max(moment.min(m, max), min).toObject());
     return m;
+  },
+
+  // ---
+
+  componentWillMount() {
+    this.m_value = moment();
+    this.m_min = moment();
+    this.m_max = moment();
+    this._adopt(this.props)
+  },
+
+  componentWillReceiveProps(props) {
+    this._adopt(props);
+  },
+
+  _adopt(props) {
+    if (props.moment != null) {
+      copyWithZeroDate(this.m_value, props.moment);
+    }
+    if (props.min != null) {
+      copyWithZeroDate(this.m_min, props.min);
+    }
+    if (props.max != null) {
+      copyWithZeroDate(this.m_max, props.max);
+    }
   }
 });

@@ -18,8 +18,16 @@
   }
 
   .day {
+    background: @color-disabled;
+
+    &--prev-month,
+    &--next-month {
+      color: #999999;
+    }
+
     &--active {
       cursor: pointer;
+      background: inherit;
       &:hover {
         background: @color-blue;
         border-color: @color-blue;
@@ -27,18 +35,9 @@
       }
     }
 
-    &--inactive {
-      background: #CECED0;
-    }
-
     &--current {
       color: @color-blue;
       font-weight: bold;
-    }
-
-    &--prev-month,
-    &--next-month {
-      color: #999999;
     }
   }
 
@@ -56,39 +55,45 @@
     color: #666666;
   }
 
-  .toolbar {
+  &__toolbar {
     line-height: 30px;
     color: @color-blue;
     text-align: center;
     margin-bottom: 13px;
+  }
 
-    button {
-      position: relative;
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      color: #ffffff;
-      border: 1px solid @color-blue;
-      border-radius: 50%;
-      background: @color-blue;
-      font-size: 20px;
-      padding: 0;
-      text-align: center;
-      outline: 0;
-      z-index: 5;
-      cursor: pointer;
-    }
+  &__btn {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    color: #ffffff;
+    border: 1px solid @color-blue;
+    border-radius: 50%;
+    background: @color-blue;
+    font-size: 20px;
+    padding: 0;
+    text-align: center;
+    outline: 0;
+    z-index: 5;
+    cursor: pointer;
 
-    .prev-month {
+    &-prev-month {
       float: left;
     }
 
-    .next-month {
+    &-next-month {
       float: right;
     }
 
-    .current-date {
-      color: @color-blue;
+    &--disabled {
+      border: 1px solid @color-disabled;
+      background: @color-disabled;
+      cursor: default;
     }
+  }
+
+  &__current-date {
+    color: @color-blue;
   }
 }
