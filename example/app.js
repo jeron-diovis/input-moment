@@ -12,7 +12,8 @@ var App = React.createClass({
 
   getInitialState() {
     return {
-      m: moment()
+      m1: moment(),
+      m2: moment()
     };
   },
 
@@ -22,25 +23,57 @@ var App = React.createClass({
         <h1>{packageJson.name}</h1>
         <h2>{packageJson.description}</h2>
         <form>
-        <div className="input">
-          <input
-            type="text"
-            value={this.state.m.format('llll')}
-            readOnly
-          />
-        </div>
-        <InputMoment
-          moment={this.state.m}
-          onChange={this.handleChange}
-          onSave={this.handleSave}
-        />
+          <div>
+            Min
+            <div className="input">
+              <input
+                type="text"
+                value={this.state.m1.format('llll')}
+                readOnly
+                />
+            </div>
+            <InputMoment
+              moment={this.state.m1}
+              onChange={this.handleChange}
+              onSave={this.handleSave}
+              minDate={moment().subtract(14, 'day')}
+              maxDate={this.state.m2}
+              maxTime={this.state.m2}
+            />
+          </div>
+
+          <br/>
+
+          <div>
+            Max
+            <div className="input">
+              <input
+                type="text"
+                value={this.state.m2.format('llll')}
+                readOnly
+                />
+            </div>
+            <InputMoment
+              moment={this.state.m2}
+              onChange={this.handleChange2}
+              onSave={this.handleSave}
+              minDate={this.state.m1}
+              minTime={this.state.m1}
+              maxDate={moment().add(14, 'day')}
+              />
+          </div>
+
         </form>
       </div>
     );
   },
 
   handleChange(m) {
-    this.setState({m: m});
+    this.setState({ m1: m });
+  },
+
+  handleChange2(m) {
+    this.setState({ m2: m });
   },
 
   handleSave() {
