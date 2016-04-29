@@ -44,21 +44,21 @@ module.exports = React.createClass({
           <Calendar
             className={cx('tab', {'is-active': tab === 0})}
             moment={m}
-            onChange={this.props.onChange}
-            prevMonthIcon={this.props.prevMonthIcon}
-            nextMonthIcon={this.props.nextMonthIcon}
+            onChange={this.onChange}
             min={this.props.minDate}
             max={this.props.maxDate}
+            prevMonthIcon={this.props.prevMonthIcon}
+            nextMonthIcon={this.props.nextMonthIcon}
           />
           <Time
             className={cx('tab', {'is-active': tab === 1})}
             moment={m}
-            onChange={this.props.onChange}
+            onChange={this.onChange}
+            min={this.props.minTime}
+            max={this.props.maxTime}
             Hours={this.props.TimeHoursControl}
             Minutes={this.props.TimeMinutesControl}
             Display={this.props.TimeDisplay}
-            min={this.props.minTime}
-            max={this.props.maxTime}
           />
         </div>
 
@@ -66,8 +66,19 @@ module.exports = React.createClass({
           onClick={this.handleSave}>
           Save
         </button>
+
+        {this.renderInput()}
       </div>
     );
+  },
+
+  renderInput() {
+    var { name, serializeFormat } = this.props;
+    if (name) {
+      return (
+        <input ref="input" type="hidden" name={name} value={this.props.moment.format(serializeFormat)} />
+      );
+    }
   },
 
   handleClickTab(tab, e) {
