@@ -12,8 +12,8 @@ module.exports = React.createClass({
     var cn = cx('day', {
       'day--prev-month': isPrevMonth,
       'day--next-month': isNextMonth,
-      'day--current': isCurrent,
-      'day--active': isActive
+      'day--active': isActive,
+      'day--current': isActive && isCurrent // unavailable day can't be active
     });
 
     return (
