@@ -31,3 +31,4 @@ node_modules
 example/bundle*
 
 lib
+dist
