@@ -76,7 +76,8 @@ module.exports = React.createClass({
 
   _emitChange(m) {
     this.fit(m);
-    this.props.onChange(copyDate(m.clone(), this.props.moment));
+    var { onChange, moment } = this.props;
+    onChange && onChange(copyDate(m.clone(), moment));
   },
 
   getMaxHour() {

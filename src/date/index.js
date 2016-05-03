@@ -87,7 +87,8 @@ module.exports = React.createClass({
   // ---
 
   onSelectDate(date) {
-    this.props.onChange(copyTime(date.clone(), this.props.moment));
+    var { onChange, moment } = this.props;
+    onChange && onChange(copyTime(date.clone(), moment));
   },
 
   onPrevMonth(e) {

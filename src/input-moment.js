@@ -17,6 +17,7 @@ module.exports = React.createClass({
 
   getDefaultProps() {
     return {
+      moment: moment(),
       prevMonthIcon: 'ion-ios-arrow-left',
       nextMonthIcon: 'ion-ios-arrow-right',
       TimeHoursControl: DefaultTimeComponents.Hours,
