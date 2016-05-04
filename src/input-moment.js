@@ -45,7 +45,7 @@ module.exports = React.createClass({
           <Calendar
             className={cx('tab', {'is-active': tab === 0})}
             moment={m}
-            onChange={this.onChange}
+            onChange={this.props.onChange}
             min={this.props.minDate}
             max={this.props.maxDate}
             prevMonthIcon={this.props.prevMonthIcon}
@@ -54,7 +54,7 @@ module.exports = React.createClass({
           <Time
             className={cx('tab', {'is-active': tab === 1})}
             moment={m}
-            onChange={this.onChange}
+            onChange={this.props.onChange}
             min={this.props.minTime}
             max={this.props.maxTime}
             Hours={this.props.TimeHoursControl}
