@@ -81,21 +81,23 @@ module.exports = React.createClass({
   },
 
   getMaxHour() {
-    return this.props.max.hour();
+    var { max, moment } = this.props;
+    return moment.dayOfYear() === max.dayOfYear() ? max.hour() : 23;
   },
 
   getMinHour() {
-    return this.props.min.hour();
+    var { min, moment } = this.props;
+    return moment.dayOfYear() === min.dayOfYear() ? min.hour() : 0;
   },
 
   getMaxMinute() {
     var { moment, max } = this.props;
-    return moment.hour() === max.hour() ? max.minute() : 59;
+    return (moment.dayOfYear() === max.dayOfYear() && moment.hour() === max.hour()) ? max.minute() : 59;
   },
 
   getMinMinute() {
     var { moment, min } = this.props;
-    return moment.hour() === min.hour() ? min.minute() : 0;
+    return (moment.dayOfYear() === min.dayOfYear() && moment.hour() === min.hour()) ? min.minute() : 0;
   },
 
   fit(m) {
