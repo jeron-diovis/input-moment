@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "React datetime picker powered by momentjs",
   "main": "lib/index.js",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "scripts": {
     "start": "node_modules/.bin/webpack-dev-server -c --port=8888",
     "build-js": "node_modules/.bin/webpack -p",
