@@ -15,14 +15,6 @@ export function copyWithZeroTime(target, source) {
   return target.set(source.toObject()).startOf('day');
 }
 
-export function copyWithZeroDate(target, source) {
-  return target.set(source.toObject()).set({
-    year: 0,
-    month: 0,
-    date: 0
-  });
-}
-
 export function isExcluded(exclude, m) {
   if (exclude) {
     if (exclude.some(x => m.isSame(x))) {
@@ -45,4 +37,8 @@ export function isInRange(min, max, m) {
     return m.isSameOrBefore(max);
   }
   return true;
+}
+
+export function fitRange(min, max, value) {
+  return Math.min(max, Math.max(min, value));
 }

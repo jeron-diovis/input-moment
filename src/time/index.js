@@ -3,7 +3,7 @@ var React = require('react');
 var moment = require('moment');
 var noop = require('lodash/noop');
 
-import { copyDate, copyWithZeroDate } from "../utils";
+import { copyDate, fitRange } from "../utils";
 
 module.exports = React.createClass({
   displayName: 'Time',
@@ -101,8 +101,10 @@ module.exports = React.createClass({
   },
 
   fit(m) {
-    var { m_min: min, m_max: max } = this;
-    m.set(moment.max(moment.min(m, max), min).toObject());
+    m.set({
+      hour: fitRange(this.getMinHour(), this.getMaxHour(), m.hour()),
+      minute: fitRange(this.getMinMinute(), this.getMaxMinute(), m.minute())
+    });
     return m;
   },
 
@@ -110,8 +112,6 @@ module.exports = React.createClass({
 
   componentWillMount() {
     this.m_value = moment();
-    this.m_min = moment();
-    this.m_max = moment();
     this._adopt(this.props)
   },
 
@@ -121,13 +121,7 @@ module.exports = React.createClass({
 
   _adopt(props) {
     if (props.moment != null) {
-      copyWithZeroDate(this.m_value, props.moment);
-    }
-    if (props.min != null) {
-      copyWithZeroDate(this.m_min, props.min);
-    }
-    if (props.max != null) {
-      copyWithZeroDate(this.m_max, props.max);
+      this.m_value.set(props.moment.toObject());
     }
   }
 });
