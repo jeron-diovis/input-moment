@@ -32,18 +32,18 @@ module.exports = React.createClass({
 
     return (
       <div className="m-input-moment">
-        <div className="options">
-          <button type="button" className={cx('ion-calendar im-btn', {'is-active': tab === 0})} onClick={this.handleClickTab.bind(null, 0)}>
+        <div className="m-input-moment__options">
+          <button type="button" className={cx('ion-calendar m-input-moment__btn m-input-moment__btn-options', {'is-active': tab === 0})} onClick={this.handleClickTab.bind(null, 0)}>
             Date
           </button>
-          <button type="button" className={cx('ion-clock im-btn', {'is-active': tab === 1})} onClick={this.handleClickTab.bind(null, 1)}>
+          <button type="button" className={cx('ion-clock m-input-moment__btn m-input-moment__btn-options', {'is-active': tab === 1})} onClick={this.handleClickTab.bind(null, 1)}>
             Time
           </button>
         </div>
 
-        <div className="tabs">
+        <div className="m-input-moment__tabs">
           <Calendar
-            className={cx('tab', {'is-active': tab === 0})}
+            className={cx('m-input-moment__tab', {'is-active': tab === 0})}
             moment={m}
             onChange={this.props.onChange}
             min={this.props.minDate}
@@ -52,7 +52,7 @@ module.exports = React.createClass({
             nextMonthIcon={this.props.nextMonthIcon}
           />
           <Time
-            className={cx('tab', {'is-active': tab === 1})}
+            className={cx('m-input-moment__tab', {'is-active': tab === 1})}
             moment={m}
             onChange={this.props.onChange}
             min={this.props.minTime}
@@ -63,7 +63,7 @@ module.exports = React.createClass({
           />
         </div>
 
-        <button type="button" className="im-btn btn-save ion-checkmark"
+        <button type="button" className="m-input-moment__btn m-input-moment__btn-save ion-checkmark"
           onClick={this.handleSave}>
           Save
         </button>
