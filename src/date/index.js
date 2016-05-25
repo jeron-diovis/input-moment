@@ -1,5 +1,5 @@
 var React = require('react');
-var Day = require('./Day');
+var Day = require('./day');
 var cx = require('classnames');
 var moment = require('moment');
 var range = require('lodash/range');
