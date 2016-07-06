@@ -36,7 +36,7 @@ var App = React.createClass({
               moment={this.state.m1}
               onChange={this.handleChange}
               onSave={this.handleSave}
-              minDate={moment().subtract(14, 'day')}
+              minDate={moment().subtract(1, 'month')}
               maxDate={this.state.m2}
               maxTime={this.state.m2}
             />
@@ -59,7 +59,7 @@ var App = React.createClass({
               onSave={this.handleSave}
               minDate={this.state.m1}
               minTime={this.state.m1}
-              maxDate={moment().add(14, 'day')}
+              maxDate={moment().add(2, 'month')}
               />
           </div>
 

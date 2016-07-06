@@ -126,13 +126,14 @@ module.exports = React.createClass({
   },
 
   isPrevMonthAvailable() {
-    return this.isInRange(this.m_days[0][0]);
+    const firstDay = this.m_days[0][0];
+    return this.isInRange(firstDay) || (this.m_current < firstDay);
   },
 
   isNextMonthAvailable() {
     var row = this.m_days[this.m_days.length - 1];
     var lastDay = row[row.length - 1];
-    return this.isInRange(lastDay);
+    return this.isInRange(lastDay) || (this.m_current > lastDay);
   },
 
   isInRange(value) {
