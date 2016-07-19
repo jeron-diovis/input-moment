@@ -180,12 +180,13 @@ module.exports = React.createClass({
     if (props.min != null) {
       copyWithZeroTime(this.m_min, props.min);
     }
-    if (props.moment != null) {
-      copyWithZeroTime(this.m_current, props.moment);
-    }
     if (props.exclude != null) {
       var exclude = [].concat(props.exclude);
       this.exclude = exclude.map(src => copyWithZeroTime(moment(), src));
+    }
+    if (props.moment != null) {
+      copyWithZeroTime(this.m_current, props.moment);
+      this._updateGrid(this.m_current);
     }
   }
 });
