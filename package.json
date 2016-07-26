@@ -1,6 +1,6 @@
 {
   "name": "react-moment-datetimepicker",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "React datetime picker powered by momentjs",
   "main": "lib/index.js",
   "files": [
