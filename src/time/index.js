@@ -122,6 +122,7 @@ module.exports = React.createClass({
   _adopt(props) {
     if (props.moment != null) {
       this.m_value.set(props.moment.toObject());
+      this.m_value.utcOffset(props.moment.utcOffset());
     }
   }
 });
