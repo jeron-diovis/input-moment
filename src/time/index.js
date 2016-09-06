@@ -64,14 +64,20 @@ module.exports = React.createClass({
 
   onChangeHours(pos) {
     var m = this.m_value;
-    m.hours(parseInt(pos, 10));
-    this._emitChange(m);
+    var hours = parseInt(pos, 10);
+    if (hours !== m.hours()) {
+      m.hours(hours);
+      this._emitChange(m);
+    }
   },
 
   onChangeMinutes(pos) {
     var m = this.m_value;
-    m.minutes(parseInt(pos, 10));
-    this._emitChange(m);
+    var minutes = parseInt(pos, 10);
+    if (minutes !== m.minutes()) {
+      m.minutes(minutes);
+      this._emitChange(m);
+    }
   },
 
   _emitChange(m) {
