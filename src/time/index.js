@@ -127,8 +127,14 @@ module.exports = React.createClass({
 
   _adopt(props) {
     if (props.moment != null) {
-      this.m_value.set(props.moment.toObject());
-      this.m_value.utcOffset(props.moment.utcOffset());
+      // Timezone info seems to be stored in native Date object inside moment.
+      // It can't be changed, so need to recreate it entirely,
+      // otherwise it leads to strange glitches during manipulations.
+      if (this.m_value.format("Z") !== props.moment.format("Z")) {
+        this.m_value = props.moment.clone();
+      } else {
+        this.m_value.set(props.moment.toObject());
+      }
     }
   }
 });
