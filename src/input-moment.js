@@ -4,6 +4,8 @@ var React = require('react');
 var Calendar = require('./date');
 var Time = require('./time');
 
+var noop = function() {};
+
 import * as DefaultTimeComponents from "./time/components";
 
 module.exports = React.createClass({
@@ -24,14 +26,16 @@ module.exports = React.createClass({
       nextMonthIcon: 'ion-ios-arrow-right',
       TimeHoursControl: DefaultTimeComponents.Hours,
       TimeMinutesControl: DefaultTimeComponents.Minutes,
-      TimeDisplay: DefaultTimeComponents.Display
+      TimeDisplay: DefaultTimeComponents.Display,
+
+      getDayExtraClasses: noop,
     };
   },
 
   render() {
     var tab = this.state.tab;
     var m = this.props.moment;
-    var { showDate, showTime } = this.props;
+    var { showDate, showTime, getDayExtraClasses } = this.props;
     var showTabs = showDate && showTime;
 
     return (
@@ -63,6 +67,7 @@ module.exports = React.createClass({
               max={this.props.maxDate}
               prevMonthIcon={this.props.prevMonthIcon}
               nextMonthIcon={this.props.nextMonthIcon}
+              getDayExtraClasses={getDayExtraClasses}
             />
           )}
           {showTime && (

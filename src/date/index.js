@@ -80,7 +80,9 @@ module.exports = React.createClass({
              isCurrent={m.isSame(today)}
              isPrevMonth={m.month() > displayed.month()}
              isNextMonth={m.month() < displayed.month()}
-             onClick={this.onSelectDate} />
+             onClick={this.onSelectDate}
+             getExtraClasses={this.props.getDayExtraClasses}
+          />
         ))}
       </tr>
     ));

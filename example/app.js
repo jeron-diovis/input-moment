@@ -39,6 +39,12 @@ var App = React.createClass({
               minDate={moment().subtract(1, 'month')}
               maxDate={this.state.m2}
               maxTime={this.state.m2}
+
+              getDayExtraClasses={({ isCurrent, isSelected }) => {
+                if (isCurrent && isSelected) {
+                  return "day--highlighted";
+                }
+              }}
             />
           </div>
 
