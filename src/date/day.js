@@ -10,7 +10,7 @@ module.exports = React.createClass({
     var {
       isSelected, isCurrent, isActive,
       isPrevMonth, isNextMonth,
-      moment,
+      moment, Content,
       getExtraClasses,
     } = this.props;
 
@@ -23,7 +23,9 @@ module.exports = React.createClass({
     });
 
     return (
-      <td className={cn} onClick={this.onClick}>{moment.date()}</td>
+      <td className={cn} onClick={this.onClick}>
+        <Content {...this.props}>{moment.date()}</Content>
+      </td>
     );
   },
 

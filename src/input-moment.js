@@ -8,6 +8,8 @@ var noop = function() {};
 
 import * as DefaultTimeComponents from "./time/components";
 
+var DefaultDayContent = ({ children }) => <span>{children}</span>
+
 module.exports = React.createClass({
   displayName: 'InputMoment',
 
@@ -27,6 +29,7 @@ module.exports = React.createClass({
       TimeHoursControl: DefaultTimeComponents.Hours,
       TimeMinutesControl: DefaultTimeComponents.Minutes,
       TimeDisplay: DefaultTimeComponents.Display,
+      DayContent: DefaultDayContent,
 
       getDayExtraClasses: noop,
     };
@@ -67,6 +70,7 @@ module.exports = React.createClass({
               max={this.props.maxDate}
               prevMonthIcon={this.props.prevMonthIcon}
               nextMonthIcon={this.props.nextMonthIcon}
+              DayContent={this.props.DayContent}
               getDayExtraClasses={getDayExtraClasses}
             />
           )}

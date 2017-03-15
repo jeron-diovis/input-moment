@@ -1,11 +1,22 @@
 require('../src/less/input-moment.less');
 require('./app.less');
 
+var cx = require('classnames');
 var moment = require('moment');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var InputMoment = require('../src/input-moment');
 var packageJson = require('../package.json');
+
+var DayCellContent = ({ children, isCurrent }) => {
+  var classes = cx({
+    "day__content--current": isCurrent,
+  });
+
+  return (
+    <span className={classes}>{children}</span>
+  );
+}
 
 var App = React.createClass({
   displayName: 'App',
@@ -40,9 +51,11 @@ var App = React.createClass({
               maxDate={this.state.m2}
               maxTime={this.state.m2}
 
+              DayContent={DayCellContent}
+
               getDayExtraClasses={({ moment, selected, max }) => {
                 if (moment.isSameOrAfter(selected) && moment.isSameOrBefore(max)) {
-                  return "day--in-selected-range";
+                  return 'day--in-selected-range';
                 }
               }}
             />
@@ -67,9 +80,11 @@ var App = React.createClass({
               minTime={this.state.m1}
               maxDate={moment().add(2, 'month')}
 
+              DayContent={DayCellContent}
+
               getDayExtraClasses={({ moment, selected, min }) => {
                 if (moment.isSameOrBefore(selected) && moment.isSameOrAfter(min)) {
-                  return "day--in-selected-range";
+                  return 'day--in-selected-range';
                 }
               }}
             />
