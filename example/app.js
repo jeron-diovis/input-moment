@@ -40,9 +40,9 @@ var App = React.createClass({
               maxDate={this.state.m2}
               maxTime={this.state.m2}
 
-              getDayExtraClasses={({ isCurrent, isSelected }) => {
-                if (isCurrent && isSelected) {
-                  return "day--highlighted";
+              getDayExtraClasses={({ moment, selected, max }) => {
+                if (moment.isSameOrAfter(selected) && moment.isSameOrBefore(max)) {
+                  return "day--in-selected-range";
                 }
               }}
             />
@@ -66,7 +66,13 @@ var App = React.createClass({
               minDate={this.state.m1}
               minTime={this.state.m1}
               maxDate={moment().add(2, 'month')}
-              />
+
+              getDayExtraClasses={({ moment, selected, min }) => {
+                if (moment.isSameOrBefore(selected) && moment.isSameOrAfter(min)) {
+                  return "day--in-selected-range";
+                }
+              }}
+            />
           </div>
 
         </form>

@@ -74,14 +74,21 @@ module.exports = React.createClass({
       <tr key={rowIdx}>
         {row.map(m => (
           <Day key={m.date()}
-             moment={m}
-             isActive={!this.isExcluded(m) && this.isInRange(m)}
-             isSelected={m.isSame(selected)}
-             isCurrent={m.isSame(today)}
-             isPrevMonth={m.month() > displayed.month()}
-             isNextMonth={m.month() < displayed.month()}
-             onClick={this.onSelectDate}
-             getExtraClasses={this.props.getDayExtraClasses}
+            moment={m}
+
+            max={this.m_max}
+            min={this.m_min}
+            selected={selected}
+            today={today}
+
+            isActive={!this.isExcluded(m) && this.isInRange(m)}
+            isSelected={m.isSame(selected)}
+            isCurrent={m.isSame(today)}
+            isPrevMonth={m.month() > displayed.month()}
+            isNextMonth={m.month() < displayed.month()}
+
+            onClick={this.onSelectDate}
+            getExtraClasses={this.props.getDayExtraClasses}
           />
         ))}
       </tr>

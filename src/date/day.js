@@ -23,7 +23,7 @@ module.exports = React.createClass({
     });
 
     return (
-      <td {...this.props} className={cn} onClick={this.onClick}>{moment.date()}</td>
+      <td className={cn} onClick={this.onClick}>{moment.date()}</td>
     );
   },
 
