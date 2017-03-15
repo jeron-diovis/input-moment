@@ -67,6 +67,7 @@ module.exports = React.createClass({
 
   renderDays() {
     var selected = this.m_selected;
+    var today = this.m_today;
     var days = this.m_days;
     var { displayed } = this.state;
     return days.map((row, rowIdx) => (
@@ -76,6 +77,7 @@ module.exports = React.createClass({
              moment={m}
              isActive={!this.isExcluded(m) && this.isInRange(m)}
              isSelected={m.isSame(selected)}
+             isCurrent={m.isSame(today)}
              isPrevMonth={m.month() > displayed.month()}
              isNextMonth={m.month() < displayed.month()}
              onClick={this.onSelectDate} />
@@ -157,11 +159,12 @@ module.exports = React.createClass({
 
   componentWillMount() {
     // preallocate all moment instances we need
+    this.m_today = moment().startOf('day');
     this.m_weekdays = moment();
     this.m_max = moment();
     this.m_min = moment();
     this.m_selected = moment();
-    this.m_days = listToGrid(range(0, 42).map(() => moment()));
+    this.m_days = listToGrid(range(0, 42).map(() => moment().startOf('day')));
     this.exclude = [];
 
     this._adopt(this.props);
