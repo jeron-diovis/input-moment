@@ -66,7 +66,7 @@ module.exports = React.createClass({
   },
 
   renderDays() {
-    var current = this.m_current;
+    var selected = this.m_selected;
     var days = this.m_days;
     var { displayed } = this.state;
     return days.map((row, rowIdx) => (
@@ -75,7 +75,7 @@ module.exports = React.createClass({
           <Day key={m.date()}
              moment={m}
              isActive={!this.isExcluded(m) && this.isInRange(m)}
-             isCurrent={m.isSame(current)}
+             isSelected={m.isSame(selected)}
              isPrevMonth={m.month() > displayed.month()}
              isNextMonth={m.month() < displayed.month()}
              onClick={this.onSelectDate} />
@@ -127,13 +127,13 @@ module.exports = React.createClass({
 
   isPrevMonthAvailable() {
     const firstDay = this.m_days[0][0];
-    return this.isInRange(firstDay) || (this.m_current < firstDay);
+    return this.isInRange(firstDay) || (this.m_selected < firstDay);
   },
 
   isNextMonthAvailable() {
     var row = this.m_days[this.m_days.length - 1];
     var lastDay = row[row.length - 1];
-    return this.isInRange(lastDay) || (this.m_current > lastDay);
+    return this.isInRange(lastDay) || (this.m_selected > lastDay);
   },
 
   isInRange(value) {
@@ -160,13 +160,13 @@ module.exports = React.createClass({
     this.m_weekdays = moment();
     this.m_max = moment();
     this.m_min = moment();
-    this.m_current = moment();
+    this.m_selected = moment();
     this.m_days = listToGrid(range(0, 42).map(() => moment()));
     this.exclude = [];
 
     this._adopt(this.props);
 
-    this._updateGrid(this.m_current);
+    this._updateGrid(this.m_selected);
   },
 
   componentWillReceiveProps(props) {
@@ -185,8 +185,8 @@ module.exports = React.createClass({
       this.exclude = exclude.map(src => copyWithZeroTime(moment(), src));
     }
     if (props.moment != null) {
-      copyWithZeroTime(this.m_current, props.moment);
-      this._updateGrid(this.m_current);
+      copyWithZeroTime(this.m_selected, props.moment);
+      this._updateGrid(this.m_selected);
     }
   }
 });
