@@ -208,7 +208,7 @@ module.exports = React.createClass({
 
 function generateDaysGrid(m) {
   var d1 = m.clone().subtract(1, 'month').endOf('month').date();
-  var d2 = m.clone().date(1).day();
+  var d2 = m.clone().date(1).weekday();
   var d3 = m.clone().endOf('month').date();
 
   return listToGrid([].concat(
