@@ -31,7 +31,11 @@ module.exports = React.createClass({
   },
 
   render() {
-    var { Hours, Minutes, Display } = this.props;
+    var {
+      Hours, Minutes, Display,
+      msgHoursSelect,
+      msgMinutesSelect,
+    } = this.props;
     var m = this.m_value;
 
     return (
@@ -43,6 +47,7 @@ module.exports = React.createClass({
 
         <div className="m-time__controls">
           <Hours
+            label={msgHoursSelect}
             className="m-time__hours"
             min={this.getMinHour()}
             max={this.getMaxHour()}
@@ -51,6 +56,7 @@ module.exports = React.createClass({
           />
 
           <Minutes
+            label={msgMinutesSelect}
             className="m-time__minutes"
             min={this.getMinMinute()}
             max={this.getMaxMinute()}

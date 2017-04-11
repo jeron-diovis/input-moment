@@ -32,6 +32,12 @@ module.exports = React.createClass({
       DayContent: DefaultDayContent,
 
       getDayExtraClasses: noop,
+
+      msgSave: "Save",
+      msgDateTab: "Date",
+      msgTimeTab: "Time",
+      msgHoursSelect: "Hours",
+      msgMinutesSelect: "Minutes",
     };
   },
 
@@ -50,12 +56,12 @@ module.exports = React.createClass({
         <div className="m-input-moment__options">
           {showTabs && (
             <button type="button" className={cx('ion-calendar m-input-moment__btn m-input-moment__btn-options', {'is-active': tab === 0})} onClick={this.handleClickTab.bind(null, 0)}>
-              Date
+              {this.props.msgDateTab}
             </button>
           )}
           {showTabs && (
             <button type="button" className={cx('ion-clock m-input-moment__btn m-input-moment__btn-options', {'is-active': tab === 1})} onClick={this.handleClickTab.bind(null, 1)}>
-              Time
+              {this.props.msgTimeTab}
             </button>
           )}
         </div>
@@ -84,13 +90,15 @@ module.exports = React.createClass({
               Hours={this.props.TimeHoursControl}
               Minutes={this.props.TimeMinutesControl}
               Display={this.props.TimeDisplay}
+              msgHoursSelect={this.props.msgHoursSelect}
+              msgMinutesSelect={this.props.msgMinutesSelect}
             />
           )}
         </div>
 
         <button type="button" className="m-input-moment__btn m-input-moment__btn-save ion-checkmark"
           onClick={this.handleSave}>
-          Save
+          {this.props.msgSave}
         </button>
 
         {this.renderInput()}
