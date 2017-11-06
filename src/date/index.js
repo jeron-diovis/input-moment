@@ -139,13 +139,17 @@ module.exports = React.createClass({
 
   isPrevMonthAvailable() {
     const firstDay = this.m_days[0][0];
-    return this.isInRange(firstDay) || (this.m_selected < firstDay);
+    return this.isInRange(firstDay) || (this.m_selected < firstDay) || (
+      this.props.max != null && this.props.max < firstDay
+    );
   },
 
   isNextMonthAvailable() {
     var row = this.m_days[this.m_days.length - 1];
     var lastDay = row[row.length - 1];
-    return this.isInRange(lastDay) || (this.m_selected > lastDay);
+    return this.isInRange(lastDay) || (this.m_selected > lastDay) || (
+      this.props.min != null && this.props.min > lastDay
+    );
   },
 
   isInRange(value) {
