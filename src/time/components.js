@@ -1,14 +1,21 @@
 var React = require('react');
 var InputSlider = require('react-input-slider');
+var PropTypes = require('prop-types');
 
-var Hours = React.createClass({
+class Hours extends React.Component {
 
-  propTypes: {
-    min: React.PropTypes.number.isRequired,
-    max: React.PropTypes.number.isRequired,
-    value: React.PropTypes.number.isRequired,
-    onChange: React.PropTypes.func.isRequired
-  },
+  static propTypes = {
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.onChange = this.onChange.bind(this)
+  }
 
   render() {
     var { min, max, value, className, label } = this.props;
@@ -24,23 +31,29 @@ var Hours = React.createClass({
         />
       </div>
     );
-  },
+  }
 
   onChange(pos) {
     var { onChange } = this.props;
     onChange && onChange(pos.x);
   }
-});
+}
 
 
-var Minutes = React.createClass({
+class Minutes extends React.Component {
 
-  propTypes: {
-    min: React.PropTypes.number.isRequired,
-    max: React.PropTypes.number.isRequired,
-    value: React.PropTypes.number.isRequired,
-    onChange: React.PropTypes.func.isRequired
-  },
+  static propTypes = {
+    min: PropTypes.number.isRequired,
+    max: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.onChange = this.onChange.bind(this)
+  }
 
   render() {
     var { min, max, value, className, label } = this.props;
@@ -56,20 +69,20 @@ var Minutes = React.createClass({
         />
       </div>
     );
-  },
+  }
 
   onChange(pos) {
     var { onChange } = this.props;
     onChange && onChange(pos.x);
   }
-});
+}
 
 
-var Display = React.createClass({
+class Display extends React.Component {
 
-  propTypes: {
-    moment: React.PropTypes.object.isRequired
-  },
+  static propTypes = {
+    moment: PropTypes.object.isRequired
+  }
 
   render() {
     var { moment: m } = this.props;
@@ -81,7 +94,7 @@ var Display = React.createClass({
       </div>
     );
   }
-});
+}
 
 
 module.exports.Hours = Hours;

@@ -11,20 +11,23 @@ import { copyTime, copyWithZeroTime, isExcluded, isInRange } from "../utils";
 
 // ---
 
-module.exports = React.createClass({
-  displayName: 'Calendar',
+module.exports = class Calendar extends React.Component {
 
-  getDefaultProps() {
-    return {
-      moment: moment()
-    };
-  },
+  static defaultProps = {
+    moment: moment(),
+  }
 
-  getInitialState() {
-    return {
-      displayed: moment().startOf('day')
-    };
-  },
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      displayed: moment().startOf('day'),
+    }
+
+    this.onPrevMonth = this.onPrevMonth.bind(this)
+    this.onNextMonth = this.onNextMonth.bind(this)
+    this.onSelectDate = this.onSelectDate.bind(this)
+  }
 
   render() {
     var m = this.state.displayed;
@@ -58,12 +61,12 @@ module.exports = React.createClass({
         </table>
       </div>
     );
-  },
+  }
 
   renderWeekdays() {
     var weekdays = this.m_weekdays.startOf('week');
     return range(0, 7).map((w, i) => <td key={i}>{weekdays.weekday(w).format('ddd')}</td>);
-  },
+  }
 
   renderDays() {
     var selected = this.m_selected;
@@ -94,28 +97,28 @@ module.exports = React.createClass({
         ))}
       </tr>
     ));
-  },
+  }
 
   // ---
 
   onSelectDate(date) {
     var { onChange, moment } = this.props;
     onChange && onChange(copyTime(date.clone(), moment));
-  },
+  }
 
   onPrevMonth(e) {
     e.preventDefault();
     if (this.isPrevMonthAvailable()) {
       this._updateGrid(this.state.displayed.clone().subtract(1, 'month'));
     }
-  },
+  }
 
   onNextMonth(e) {
     e.preventDefault();
     if (this.isNextMonthAvailable()) {
       this._updateGrid(this.state.displayed.clone().add(1, 'month'));
     }
-  },
+  }
 
   // ---
 
@@ -135,14 +138,14 @@ module.exports = React.createClass({
     });
 
     this.setState({ displayed: date });
-  },
+  }
 
   isPrevMonthAvailable() {
     const firstDay = this.m_days[0][0];
     return this.isInRange(firstDay) || (this.m_selected < firstDay) || (
       this.props.max != null && this.props.max < firstDay
     );
-  },
+  }
 
   isNextMonthAvailable() {
     var row = this.m_days[this.m_days.length - 1];
@@ -150,7 +153,7 @@ module.exports = React.createClass({
     return this.isInRange(lastDay) || (this.m_selected > lastDay) || (
       this.props.min != null && this.props.min > lastDay
     );
-  },
+  }
 
   isInRange(value) {
     var { min, max } = this.props;
@@ -159,7 +162,7 @@ module.exports = React.createClass({
       max == null ? null : this.m_max,
       value
     );
-  },
+  }
 
   isExcluded(value) {
     var { exclude } = this.props;
@@ -167,7 +170,7 @@ module.exports = React.createClass({
       exclude == null ? null : this.exclude,
       value
     );
-  },
+  }
 
   // ---
 
@@ -184,11 +187,11 @@ module.exports = React.createClass({
     this._adopt(this.props);
 
     this._updateGrid(this.m_selected);
-  },
+  }
 
   componentWillReceiveProps(props) {
     this._adopt(props);
-  },
+  }
 
   _adopt(props) {
     if (props.max != null) {
@@ -206,7 +209,7 @@ module.exports = React.createClass({
       this._updateGrid(this.m_selected);
     }
   }
-});
+}
 
 // ---
 

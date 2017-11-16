@@ -3,8 +3,13 @@ var React = require('react');
 
 // ---
 
-module.exports = React.createClass({
-  displayName: 'Day',
+module.exports = class Day extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.onClick = this.onClick.bind(this)
+  }
 
   render() {
     var {
@@ -27,7 +32,7 @@ module.exports = React.createClass({
         <Content {...this.props}>{moment.date()}</Content>
       </td>
     );
-  },
+  }
 
 
   onClick() {
@@ -36,4 +41,4 @@ module.exports = React.createClass({
       onClick(moment);
     }
   }
-});
+}

@@ -1,34 +1,40 @@
 var cx = require('classnames');
 var React = require('react');
 var moment = require('moment');
-var noop = require('lodash/noop');
+var PropTypes = require('prop-types');
+
+var noop = () => {};
 
 import { copyDate, fitRange } from "../utils";
 
-module.exports = React.createClass({
-  displayName: 'Time',
+module.exports = class Time extends React.Component {
 
-  propTypes: {
-    Hours: React.PropTypes.func,
-    Minutes: React.PropTypes.func,
-    Display: React.PropTypes.func,
+  static propTypes = {
+    Hours: PropTypes.func,
+    Minutes: PropTypes.func,
+    Display: PropTypes.func,
 
-    moment: React.PropTypes.object.isRequired,
-    max: React.PropTypes.object.isRequired,
-    min: React.PropTypes.object.isRequired
-  },
+    moment: PropTypes.object.isRequired,
+    max: PropTypes.object.isRequired,
+    min: PropTypes.object.isRequired
+  }
 
-  getDefaultProps() {
-    return {
-      Hours: noop,
-      Minutes: noop,
-      Display: noop,
+  static defaultProps = {
+    Hours: noop,
+    Minutes: noop,
+    Display: noop,
 
-      moment: moment(),
-      min: moment("00:00", "HH:mm"),
-      max: moment("23:59", "HH:mm")
-    };
-  },
+    moment: moment(),
+    min: moment("00:00", "HH:mm"),
+    max: moment("23:59", "HH:mm"),
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.onChangeHours = this.onChangeHours.bind(this)
+    this.onChangeMinutes = this.onChangeMinutes.bind(this)
+  }
 
   render() {
     var {
@@ -66,7 +72,7 @@ module.exports = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
   onChangeHours(pos) {
     var m = this.m_value;
@@ -75,7 +81,7 @@ module.exports = React.createClass({
       m.hours(hours);
       this._emitChange(m);
     }
-  },
+  }
 
   onChangeMinutes(pos) {
     var m = this.m_value;
@@ -84,33 +90,33 @@ module.exports = React.createClass({
       m.minutes(minutes);
       this._emitChange(m);
     }
-  },
+  }
 
   _emitChange(m) {
     this.fit(m);
-    var { onChange, moment } = this.props;
+    var { onChange, moment = this.defaultVal } = this.props;
     onChange && onChange(copyDate(m.clone(), moment));
-  },
+  }
 
   getMaxHour() {
-    var { max, moment } = this.props;
+    var { moment, max } = this.props;
     return moment.dayOfYear() === max.dayOfYear() ? max.hour() : 23;
-  },
+  }
 
   getMinHour() {
-    var { min, moment } = this.props;
+    var { moment, min } = this.props;
     return moment.dayOfYear() === min.dayOfYear() ? min.hour() : 0;
-  },
+  }
 
   getMaxMinute() {
     var { moment, max } = this.props;
     return (moment.dayOfYear() === max.dayOfYear() && moment.hour() === max.hour()) ? max.minute() : 59;
-  },
+  }
 
   getMinMinute() {
     var { moment, min } = this.props;
     return (moment.dayOfYear() === min.dayOfYear() && moment.hour() === min.hour()) ? min.minute() : 0;
-  },
+  }
 
   fit(m) {
     m.set({
@@ -118,18 +124,18 @@ module.exports = React.createClass({
       minute: fitRange(this.getMinMinute(), this.getMaxMinute(), m.minute())
     });
     return m;
-  },
+  }
 
   // ---
 
   componentWillMount() {
     this.m_value = moment();
     this._adopt(this.props)
-  },
+  }
 
   componentWillReceiveProps(props) {
     this._adopt(props);
-  },
+  }
 
   _adopt(props) {
     if (props.moment != null) {
@@ -143,4 +149,4 @@ module.exports = React.createClass({
       }
     }
   }
-});
+}
