@@ -2,8 +2,34 @@ var React = require('react');
 var Day = require('./day');
 var cx = require('classnames');
 var moment = require('moment');
-var range = require('lodash/range');
-var chunk = require('lodash/chunk');
+
+// ---
+
+const range = (start, end) => {
+  let xs = []
+  for (let i = start; i < end; i++) {
+    xs.push(i)
+  }
+  return xs
+}
+
+const chunk = (xs, size = 1) => {
+  let len = xs.length
+
+  if (len === 0 || size < 1) {
+    return []
+  }
+
+  let ret = []
+  let i = 0
+  while (i < len) {
+    ret.push(xs.slice(i, i + size))
+    i += size
+  }
+  return ret
+}
+
+// ---
 
 var listToGrid = x => chunk(x, 7);
 
